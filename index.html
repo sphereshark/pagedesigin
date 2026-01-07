@@ -1,0 +1,218 @@
+<html>
+
+<style>
+    @font-face {
+        font-family: 'APJ';
+        src: url('APJapanesefont.ttf');
+    }
+
+    html,
+    body {
+        overflow: hidden;
+        touch-action: manipulation;
+        user-select: none;
+
+        font-size: 6vmin;
+        font-family: APJ;
+
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        touch-callout: none;
+    }
+
+    a,
+    input {
+        font-size: xx-large;
+        color: white;
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        touch-callout: none;
+    }
+
+    h1 {
+        color: white;
+    }
+
+    .a-light {
+        background-color: black;
+    }
+
+    .noselect {
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+    }
+
+    .select-none {
+        user-select: none;
+        touch-callout: none;
+    }
+
+    .parent {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .child1 {
+        margin: 4px;
+        padding: 4px;
+        text-align: left;
+    }
+
+    .child2 {
+        margin: 4px;
+        padding: 4px;
+        text-align: right;
+    }
+</style>
+
+<header>
+    <title>UOGOUOGO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://unpkg.com/p5.createloop@0.2.8/dist/p5.createloop.js"></script>
+    <script src="sketch.js"></script>
+
+</header>
+
+<body bgcolor="#000000">
+    <div class=parent>
+        <div class=child1>
+            <div style="display: none;" id=menu >
+                <a href="javascript:RresetButton()">さくじょ</a>
+                <br>
+                <a href="javascript:sGif()" id=saveE>せーぶ</a>
+                <br>
+                <a href="javascript:togglesitagaki()" id=sitagaki>したがきもーど[ ]</a>
+                <br>
+                <a href="javascript:togglesitagakiVisibility()" id=sitagakiv>したがきひょうじ[ ]</a>
+                <br>
+                <a href="javascript:changebg()" id=haike>はいけい[ぶらっく]</a>
+                <br>
+                <a href="javascript:changchoten()" id=sLen>あらさ[2]</a>
+                <br>
+                <a href="javascript:changev()" id=sVaib>ゆれはば[3]</a>
+                <br>
+                <a href="javascript:changesize()" id=futosa>ふとさ[4]</a>
+                <br>
+            </div>
+
+            <a href="javascript:hyouzi()" id=menubutton vis=true>[+]</a>
+            <br>
+            <a href="javascript:toggletool()" style="color: rgb(255, 255, 255);" id=toolmode>ぺん</a>
+            <br>
+            <a href="javascript:togglecol()" style="color: rgb(255, 255, 255);" id=colbutton>いろへんこー</a>
+            <br>
+            <a href="javascript:undo()" style="color: #6fbdf1;" id=andu>あんでぅー</a>
+
+
+        </div>
+        <div class=child2>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    function hyouzi() {
+        if (menubutton.vis) {
+            menu.style.display = "inline";
+            menubutton.text = "[-]"
+        } else {
+            menu.style.display = "none";
+            menubutton.text = "[+]"
+        }
+        menubutton.vis = !menubutton.vis;
+
+    }
+    document.addEventListener('touchstart', event => {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, true);
+
+    window.addEventListener("orientationchange", function () {
+        alert("画面を回転してもロード時のキャンバスの範囲にしか描画できないため元の方向にするか再読み込みすることをお勧めします。");
+    });
+    window.addEventListener("resize", function () {
+        alert("画面のサイズを変更してもロード時のキャンバスの範囲にしか描画できません。");
+    });
+    window.onload = function () {
+        alert("Alpha版なので色々不具合があるかもしれません！ごめんなさい！by @koragen_7");
+
+        var URL = "https://script.google.com/macros/s/AKfycbxurjsgx22KqUqfyNWTIb4eydmUzrHN4cBUBf7DMc1phm2UECA/exec";
+        var UserAgent =window.navigator.userAgent.toLowerCase();
+        var SendDATA = {
+            "UserAgent": UserAgent,
+            "referrer":window.document.referrer,
+            "lang":window.navigator.language
+        };
+
+        var postparam =
+        {
+            "method": "POST",
+            "mode": "no-cors",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "body": JSON.stringify(SendDATA)
+        };
+
+        fetch(URL, postparam);
+    };
+
+
+
+</script>
+
+<script>
+    /* ピッチインピッチアウトによる拡大縮小を禁止 */
+    document.documentElement.addEventListener('touchstart', function (e) {
+    if (e.touches.length >= 2) {e.preventDefault();}
+    }, {passive: false});
+    /* ダブルタップによる拡大を禁止 */
+    var t = 0;
+    document.documentElement.addEventListener('touchend', function (e) {
+    var now = new Date().getTime();
+    if ((now - t) < 350){
+      e.preventDefault();
+    }
+    t = now;
+    }, false);
+  </script>
+  <style>
+    body , input , textarea , select {
+    /* 入力欄にフォーカスが当たっても拡大しない */
+      font-size:17px;
+    }
+  </style>
+
+</html>
